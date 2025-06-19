@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const App = () => {
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const apiKey = import.meta.env.VITE_apikey;
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") addTask();
+  };
 
   const fetchWeather = async () => {
     if (!city) return;
@@ -24,12 +28,12 @@ const App = () => {
           icon: data.weather[0].icon,
         });
       } else {
-        alert('City not found');
+        alert("City not found");
         setWeather(null);
       }
     } catch (err) {
       console.log(err);
-      alert('Error fetching weather');
+      alert("Error fetching weather");
     }
   };
 
@@ -46,6 +50,7 @@ const App = () => {
           placeholder="Enter City Name"
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          onKeyPress={handleKeyPress}
         />
         <button
           onClick={fetchWeather}
