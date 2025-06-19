@@ -6,7 +6,7 @@ const App = () => {
   const apiKey = import.meta.env.VITE_apikey;
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") addTask();
+    if (e.key === "Enter") fetchWeather();
   };
 
   const fetchWeather = async () => {
