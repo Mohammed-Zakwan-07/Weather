@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import ThemeToggle from "./components/ThemeToggle"; // make sure this exists!
 
 const App = () => {
   const [city, setCity] = useState("");
@@ -40,15 +41,22 @@ const App = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-[#cafbff] via-[#c084fc] to-[#a78bfa] font-mono p-4 sm:p-6 md:p-10 flex flex-col items-center">
-      <h1 className="text-4xl sm:text-5xl md:text-6xl text-black font-bold text-center drop-shadow-md mt-16">
+    <div
+      className="w-full min-h-screen transition-colors duration-300 font-mono p-4 sm:p-6 md:p-10 flex flex-col items-center
+      bg-gradient-to-br from-[#cafbff] via-[#c084fc] to-[#a78bfa]
+      dark:from-gray-900 dark:via-gray-800 dark:to-black
+      text-black dark:text-white"
+    >
+      <ThemeToggle />
+
+      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center drop-shadow-md mt-16">
         Weather App
       </h1>
 
       {/* Search Box */}
-      <div className="bg-[#faf5ff] shadow-2xl p-6 sm:p-8 md:p-10 rounded-3xl mt-6 w-full max-w-md flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div className="bg-[#faf5ff] dark:bg-[#1f1f2e] shadow-2xl p-6 sm:p-8 md:p-10 rounded-3xl mt-6 w-full max-w-md flex flex-col sm:flex-row items-center justify-center gap-4">
         <input
-          className="flex-1 h-10 w-full sm:w-auto border border-gray-300 rounded-2xl px-4 text-sm"
+          className="flex-1 h-10 w-full sm:w-auto border border-gray-300 dark:border-gray-600 rounded-2xl px-4 text-sm bg-white dark:bg-gray-700 dark:text-white"
           type="text"
           placeholder="Enter City Name"
           value={city}
@@ -57,7 +65,7 @@ const App = () => {
         />
         <button
           onClick={fetchWeather}
-          className="bg-amber-200/80 px-5 py-2 rounded-2xl hover:scale-105 transition-all duration-200 shadow-md"
+          className="bg-amber-200/80 dark:bg-amber-400/40 px-5 py-2 rounded-2xl hover:scale-105 transition-all duration-200 shadow-md"
         >
           Search
         </button>
@@ -69,7 +77,7 @@ const App = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="bg-[#faf5ff] backdrop-blur-md mx-auto mt-6 w-full max-w-md rounded-3xl p-6 sm:p-8 flex flex-col items-center space-y-4 text-center"
+          className="bg-[#faf5ff] dark:bg-[#1f1f2e] backdrop-blur-md mx-auto mt-6 w-full max-w-md rounded-3xl p-6 sm:p-8 flex flex-col items-center space-y-4 text-center text-black dark:text-white"
         >
           <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold">
             {weather.name}, {weather.country}

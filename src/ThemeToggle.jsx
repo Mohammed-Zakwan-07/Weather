@@ -2,25 +2,31 @@ import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
 const ThemeToggle = () => {
-  const [dark, setDark] = useState(() => localStorage.theme === "dark");
+  const [isDark, setIsDark] = useState(() => {
+    return (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    );
+  });
 
   useEffect(() => {
-    if (dark) {
+    if (isDark) {
       document.documentElement.classList.add("dark");
       localStorage.theme = "dark";
     } else {
       document.documentElement.classList.remove("dark");
       localStorage.theme = "light";
     }
-  }, [dark]);
+  }, [isDark]);
 
   return (
     <button
-      onClick={() => setDark(!dark)}
-      className="absolute top-5 right-5 bg-white dark:bg-gray-800 p-2 rounded-full shadow-md transition-all hover:scale-110"
+      onClick={() => setIsDark(!isDark)}
+      className="fixed top-4 right-4 z-50 p-2 rounded-full shadow-md bg-white dark:bg-gray-800 hover:scale-110 transition-all"
     >
-      {dark ? (
-        <Sun size={20} className="text-yellow-400" />
+      {isDark ? (
+        <Sun size={20} className="text-yellow-300" />
       ) : (
         <Moon size={20} className="text-purple-700" />
       )}
