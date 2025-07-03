@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const App = () => {
   const [city, setCity] = useState("");
@@ -17,6 +18,7 @@ const App = () => {
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
       );
       const data = await res.json();
+
       if (data.cod === 200) {
         setWeather({
           name: data.name,
@@ -32,7 +34,7 @@ const App = () => {
         setWeather(null);
       }
     } catch (err) {
-      console.log(err);
+      console.error("Weather fetch error:", err);
       alert("Error fetching weather");
     }
   };
@@ -43,6 +45,7 @@ const App = () => {
         Weather App
       </h1>
 
+      {/* Search Box */}
       <div className="bg-[#faf5ff] shadow-2xl p-6 sm:p-8 md:p-10 rounded-3xl mt-6 w-full max-w-md flex flex-col sm:flex-row items-center justify-center gap-4">
         <input
           className="flex-1 h-10 w-full sm:w-auto border border-gray-300 rounded-2xl px-4 text-sm"
@@ -60,8 +63,14 @@ const App = () => {
         </button>
       </div>
 
+      {/* Weather Card with Animation */}
       {weather && (
-        <div className="bg-[#faf5ff] backdrop-blur-md mx-auto mt-6 w-full max-w-md rounded-3xl p-6 sm:p-8 flex flex-col items-center space-y-4 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="bg-[#faf5ff] backdrop-blur-md mx-auto mt-6 w-full max-w-md rounded-3xl p-6 sm:p-8 flex flex-col items-center space-y-4 text-center"
+        >
           <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold">
             {weather.name}, {weather.country}
           </h3>
@@ -73,9 +82,10 @@ const App = () => {
           <p className="text-2xl sm:text-3xl font-bold">{weather.temp}°C</p>
           <p className="capitalize text-lg sm:text-xl">{weather.description}</p>
           <p className="text-sm sm:text-base">
-            💧Humidity: {weather.humidity}%   |   💨Wind: {weather.wind} m/s
+            💧 Humidity: {weather.humidity}% &nbsp;|&nbsp; 💨 Wind:{" "}
+            {weather.wind} m/s
           </p>
-        </div>
+        </motion.div>
       )}
     </div>
   );
