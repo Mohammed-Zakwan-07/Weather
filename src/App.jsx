@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import ThemeToggle from "./components/ThemeToggle"; // make sure this exists!
+import ThemeToggle from "./ThemeToggle"; // make sure this exists!
 
 const App = () => {
   const [city, setCity] = useState("");
