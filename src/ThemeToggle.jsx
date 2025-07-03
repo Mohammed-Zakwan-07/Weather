@@ -3,19 +3,24 @@ import { Moon, Sun } from "lucide-react";
 
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(() => {
-    return (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    );
+    if (typeof localStorage !== "undefined") {
+      return (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      );
+    }
+    return false;
   });
 
   useEffect(() => {
+    const root = document.documentElement;
+
     if (isDark) {
-      document.documentElement.classList.add("dark");
+      root.classList.add("dark");
       localStorage.theme = "dark";
     } else {
-      document.documentElement.classList.remove("dark");
+      root.classList.remove("dark");
       localStorage.theme = "light";
     }
   }, [isDark]);
