@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import ThemeToggle from "./ThemeToggle"; // make sure this exists!
 
 const App = () => {
   const [city, setCity] = useState("");
@@ -47,8 +46,6 @@ const App = () => {
       dark:from-gray-900 dark:via-gray-800 dark:to-black
       text-black dark:text-white"
     >
-      <ThemeToggle />
-
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center drop-shadow-md mt-16">
         Weather App
       </h1>
